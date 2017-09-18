@@ -1,6 +1,7 @@
 ﻿/*
  * Jacob Lanham
  * ITSE 1430
+ * 9-18-2017
  */
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,11 @@ namespace Lab1
         {
         static void Main( string[] args )
         {
-            bool quit = false;
+            var quit = false;
             do
             {
                
-                char choice = GetInput();
+                var choice = GetInput();
                 switch (choice)
                 {
                     case 'A': AddMovie(); break;
@@ -84,15 +85,15 @@ namespace Lab1
                 Console.WriteLine("No movies available");
             else
             {
-                Console.WriteLine($"Movie Title: {movieTitle}");
+                Console.WriteLine($"Title: {movieTitle}");
 
                 if (!String.IsNullOrEmpty(movieDescription))
-                    Console.WriteLine($"Movie Description: {movieDescription}");
+                    Console.WriteLine($"Description: {movieDescription}");
 
                 if (movieLength >= 0)
-                    Console.WriteLine($"Movie Runtime: {movieLength}");
+                    Console.WriteLine($"Runtime: {movieLength} mins");
 
-                Console.WriteLine($"Status: {(movieOwned ? "Owned" : "Not owned")}");
+                Console.WriteLine($"Status: {(movieOwned ? "Owned" : "Not Owned")}");
             }
         }
 
@@ -121,7 +122,7 @@ namespace Lab1
         {
             do
             {
-                string input = Console.ReadLine();
+                var input = Console.ReadLine();
 
                 if (!String.IsNullOrEmpty(input))
                 {
@@ -159,7 +160,7 @@ namespace Lab1
         static void RemoveMovie()
         {
             Console.WriteLine("Are you sure you want to remove this movie? (Y/N): ");
-            bool delete = ReadYesNo();
+            var delete = ReadYesNo();
 
             if (delete)
             {
