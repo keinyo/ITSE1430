@@ -15,7 +15,10 @@ namespace Nile.Windows
         static void Main()
         {
             var product = new Product();
-            product.Name = "Product A";
+            //product.Name = "Product A";
+
+            var price = product.DiscountedPrice;
+            var name = product.Name;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
