@@ -12,7 +12,6 @@ namespace Nile
     /// </remarks>
     public class Product
     {
-        public readonly Product None = new Product();
         /// <summary>Gets or sets the name</summary>
         /// <value>Never returns null.</value>
         public string Name
@@ -23,8 +22,6 @@ namespace Nile
             // void set_Name(string value)
             set { _name = value?.Trim(); }
         }
-
-        
 
         /// <summary>Gets or sets the description</summary>
         public string Description
@@ -54,7 +51,6 @@ namespace Nile
 
         public int ICanOnlySetIt { get; private set; }
         public int ICanOnlySetIt2 { get; }
-
 
         private string _name;
         private string _description;
