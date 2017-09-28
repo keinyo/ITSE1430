@@ -12,12 +12,17 @@ namespace Nile
     /// </remarks>
     public class Product
     {
+        public Product()
+        {
+            //Cross field initialization
+        }
+
         /// <summary>Gets or sets the name</summary>
         /// <value>Never returns null.</value>
         public string Name
         {
             // string get_Name()
-            get { return _name ?? "";}
+            get { return _name ?? ""; }
 
             // void set_Name(string value)
             set { _name = value?.Trim(); }
@@ -40,8 +45,7 @@ namespace Nile
         /// <summary>Gets the discounted price, if applicable.</summary>
         public decimal DiscountedPrice
         {
-            get 
-            {
+            get {
                 if (IsDiscontinued)
                     return Price * DiscontinuedDiscountRate;
 
@@ -49,12 +53,36 @@ namespace Nile
             }
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        //public abstract string Validate2();
+
+        /// <summary>Validates the object</summary>
+        /// <returns>The error message, or null.</returns>
+        public virtual string Validate()
+        {
+            //Name cannot be empty
+            if (String.IsNullOrEmpty(Name))
+                return "Name cannot be empty.";
+            //Price >=0
+            if (Price < 0)
+                return "Price must be >=0";
+
+            return null;
+        }
+
+        /*
         public int ICanOnlySetIt { get; private set; }
         public int ICanOnlySetIt2 { get; }
+        */
+
 
         private string _name;
         private string _description;
 
-        private readonly double _someValueICannotChange = 10;
+        //private readonly double _someValueICannotChange = 10;
     }
 }

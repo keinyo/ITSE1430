@@ -12,11 +12,15 @@ namespace Nile.Windows
 
         private void button1_Click( object sender, EventArgs e )
         {
-            var child = new ProductDetailForm();
+            var product = new Product();
+            product.Name = "Product A";
+
+            var child = new ProductDetailForm("Product Details");
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            var product = child.Product;
+            //TODO: Save product
+            //var product = child.Product;
         }
     }
 }
