@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Jacob Lanham
+ * ITSE 1430
+ * 10-05-2017
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,6 +34,8 @@ namespace MovieLib.Windows
                 _chkOwned.Checked = Movie.Owned;
 
             };
+
+            ValidateChildren();
         }
             /// <summary>Gets or sets the movie being shown/summary>
             public Movie Movie { get; set; }
@@ -40,10 +47,13 @@ namespace MovieLib.Windows
             var movie = new Movie();
             movie.Title = _txtTitle.Text;
             movie.Description = _txtDescription.Text;
-            movie.Length = GetPrice();
+            movie.Length = GetLength(_txtLength);
             movie.Owned = _chkOwned.Checked;
 
             //Validation
+            if(!ValidateChildren())
+                return;
+
             var error = movie.Validate();
             if(!String.IsNullOrEmpty(error))
             {
@@ -64,18 +74,42 @@ namespace MovieLib.Windows
         }
         #endregion
         
-        private int GetPrice()
+        private int GetLength(TextBox control)
         {
-            if (Int32.TryParse(_txtLength.Text, out int length))
+            if (Int32.TryParse(control.Text, out int length))
                 return length;
+            else if (String.IsNullOrEmpty(control.Text))
+                return 0;
 
-            //TODO: Validate price
-            return 0;
+            return -1;
         }
 
         private void ShowError( string message, string title)
         {
             MessageBox.Show(this, message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void OnValidatingTitle( object sender, CancelEventArgs e )
+        {
+            var tb = sender as TextBox;
+
+            if (String.IsNullOrEmpty(tb.Text))
+                _errors.SetError(tb, "Title can not be empty");
+            else
+                _errors.SetError(tb, "");
+          
+        }
+
+        private void OnValidatingLength( object sender, CancelEventArgs e )
+        {
+            var tb = sender as TextBox;
+
+            
+            if (GetLength(tb) < 0)
+                _errors.SetError(tb, "Length must be >=0");
+            else
+                _errors.SetError(tb, "");
+
         }
     }
 

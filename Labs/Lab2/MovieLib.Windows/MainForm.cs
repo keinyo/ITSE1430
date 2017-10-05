@@ -34,9 +34,14 @@ namespace MovieLib.Windows
 
         private void OnMoviesEdit( object sender, EventArgs e )
         {
+            //If there is no movie, show error dialog.
+            if (_movie == null)
+            {
+                MessageBox.Show(this, "No movie to edit", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             var child = new MovieDetailForm();
             child.Movie = _movie;
-            //TODO: Add validation
 
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
@@ -47,9 +52,12 @@ namespace MovieLib.Windows
 
         private void OnMoviesDelete( object sender, EventArgs e )
         {
-            //If there is no movie, does nothing
+            //If there is no movie, show error dialog.
             if (_movie == null)
+            {
+                MessageBox.Show(this, "No movie to delete", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
 
             //Confirm Delete
             if ((MessageBox.Show(this, $"Are you sure you want to delete {_movie.Title}?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No))
