@@ -32,9 +32,9 @@
             this._lblDescription = new System.Windows.Forms.Label();
             this._lblLength = new System.Windows.Forms.Label();
             this._chkOwned = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this._txtTitle = new System.Windows.Forms.TextBox();
+            this._txtLength = new System.Windows.Forms.TextBox();
+            this._txtDescription = new System.Windows.Forms.TextBox();
             this._btnCancel = new System.Windows.Forms.Button();
             this._btnSave = new System.Windows.Forms.Button();
             this._lblMinutes = new System.Windows.Forms.Label();
@@ -70,57 +70,59 @@
             // _chkOwned
             // 
             this._chkOwned.AutoSize = true;
-            this._chkOwned.Location = new System.Drawing.Point(100, 202);
+            this._chkOwned.Location = new System.Drawing.Point(84, 188);
             this._chkOwned.Name = "_chkOwned";
             this._chkOwned.Size = new System.Drawing.Size(60, 17);
-            this._chkOwned.TabIndex = 4;
+            this._chkOwned.TabIndex = 8;
             this._chkOwned.Text = "Owned";
             this._chkOwned.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // _txtTitle
             // 
-            this.textBox1.Location = new System.Drawing.Point(100, 42);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(250, 20);
-            this.textBox1.TabIndex = 5;
+            this._txtTitle.Location = new System.Drawing.Point(84, 42);
+            this._txtTitle.Name = "_txtTitle";
+            this._txtTitle.Size = new System.Drawing.Size(313, 20);
+            this._txtTitle.TabIndex = 5;
             // 
-            // textBox2
+            // _txtLength
             // 
-            this.textBox2.Location = new System.Drawing.Point(100, 162);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(201, 20);
-            this.textBox2.TabIndex = 6;
+            this._txtLength.Location = new System.Drawing.Point(84, 162);
+            this._txtLength.Name = "_txtLength";
+            this._txtLength.Size = new System.Drawing.Size(60, 20);
+            this._txtLength.TabIndex = 7;
             // 
-            // textBox3
+            // _txtDescription
             // 
-            this.textBox3.Location = new System.Drawing.Point(100, 68);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(250, 88);
-            this.textBox3.TabIndex = 7;
+            this._txtDescription.Location = new System.Drawing.Point(84, 68);
+            this._txtDescription.Multiline = true;
+            this._txtDescription.Name = "_txtDescription";
+            this._txtDescription.Size = new System.Drawing.Size(313, 88);
+            this._txtDescription.TabIndex = 6;
             // 
             // _btnCancel
             // 
-            this._btnCancel.Location = new System.Drawing.Point(222, 231);
+            this._btnCancel.Location = new System.Drawing.Point(241, 216);
             this._btnCancel.Name = "_btnCancel";
             this._btnCancel.Size = new System.Drawing.Size(75, 23);
-            this._btnCancel.TabIndex = 8;
+            this._btnCancel.TabIndex = 9;
             this._btnCancel.Text = "Cancel";
             this._btnCancel.UseVisualStyleBackColor = true;
+            this._btnCancel.Click += new System.EventHandler(this.OnCancel);
             // 
             // _btnSave
             // 
-            this._btnSave.Location = new System.Drawing.Point(303, 231);
+            this._btnSave.Location = new System.Drawing.Point(322, 216);
             this._btnSave.Name = "_btnSave";
             this._btnSave.Size = new System.Drawing.Size(75, 23);
-            this._btnSave.TabIndex = 9;
+            this._btnSave.TabIndex = 10;
             this._btnSave.Text = "Save";
             this._btnSave.UseVisualStyleBackColor = true;
+            this._btnSave.Click += new System.EventHandler(this.OnSave);
             // 
             // _lblMinutes
             // 
             this._lblMinutes.AutoSize = true;
-            this._lblMinutes.Location = new System.Drawing.Point(307, 165);
+            this._lblMinutes.Location = new System.Drawing.Point(150, 165);
             this._lblMinutes.Name = "_lblMinutes";
             this._lblMinutes.Size = new System.Drawing.Size(43, 13);
             this._lblMinutes.TabIndex = 10;
@@ -130,13 +132,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(390, 266);
+            this.ClientSize = new System.Drawing.Size(409, 251);
             this.Controls.Add(this._lblMinutes);
             this.Controls.Add(this._btnSave);
             this.Controls.Add(this._btnCancel);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this._txtDescription);
+            this.Controls.Add(this._txtLength);
+            this.Controls.Add(this._txtTitle);
             this.Controls.Add(this._chkOwned);
             this.Controls.Add(this._lblLength);
             this.Controls.Add(this._lblDescription);
@@ -154,9 +156,9 @@
         private System.Windows.Forms.Label _lblDescription;
         private System.Windows.Forms.Label _lblLength;
         private System.Windows.Forms.CheckBox _chkOwned;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox _txtTitle;
+        private System.Windows.Forms.TextBox _txtLength;
+        private System.Windows.Forms.TextBox _txtDescription;
         private System.Windows.Forms.Button _btnCancel;
         private System.Windows.Forms.Button _btnSave;
         private System.Windows.Forms.Label _lblMinutes;
