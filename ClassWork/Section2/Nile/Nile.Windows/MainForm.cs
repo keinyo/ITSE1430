@@ -67,5 +67,6 @@ namespace Nile.Windows
         }
 
         private Product _product;
+
     }
 }

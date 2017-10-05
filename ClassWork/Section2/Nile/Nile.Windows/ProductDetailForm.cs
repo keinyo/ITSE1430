@@ -41,6 +41,8 @@ namespace Nile.Windows
                 _txtPrice.Text = Product.Price.ToString();
                 _chkDiscontinued.Checked = Product.IsDiscontinued;
             };
+
+            ValidateChildren();
         }
 
 
@@ -61,10 +63,14 @@ namespace Nile.Windows
 
         private void OnSave( object sender, EventArgs e )
         {
+            if(!ValidateChildren())
+            {
+                return;
+            };
             var product = new Product();
             product.Name = _txtName.Text;
             product.Description = _txtDescription.Text;
-            product.Price = GetPrice();
+            product.Price = GetPrice(_txtPrice);
             product.IsDiscontinued = _chkDiscontinued.Checked;
 
             //Add validation
@@ -81,13 +87,13 @@ namespace Nile.Windows
             Close();
         }
 
-        private decimal GetPrice()
+        private decimal GetPrice(TextBox control)
         {
             if (Decimal.TryParse(_txtPrice.Text, out decimal price))
                 return price;
 
             //TODO: Validate price
-            return 0;
+            return -1;
         }
 
         private void ProductDetailForm_FormClosing( object sender, FormClosingEventArgs e )
@@ -117,6 +123,58 @@ namespace Nile.Windows
         private void ProductDetailForm_FormClosed( object sender, FormClosedEventArgs e )
         {
 
+        }
+
+        private void _chkDiscontinued_CheckedChanged( object sender, EventArgs e )
+        {
+
+        }
+
+        private void _txtPrice_TextChanged( object sender, EventArgs e )
+        {
+
+        }
+
+        private void label3_Click( object sender, EventArgs e )
+        {
+
+        }
+
+        private void ProductDetailForm_Load( object sender, EventArgs e )
+        {
+
+        }
+
+        private void _txtName_TextChanged( object sender, EventArgs e )
+        {
+
+        }
+
+        private void _txtDescription_TextChanged( object sender, EventArgs e )
+        {
+
+        }
+
+        private void OnValidatingPrice( object sender, CancelEventArgs e )
+        {
+            var tb = sender as TextBox;
+
+            if (GetPrice(tb) < 0)
+            {
+                e.Cancel = true;
+                _errors.SetError(_txtPrice, "Price must be >=0");
+            } else
+                _errors.SetError(_txtPrice, "");
+
+        }
+
+        private void OnValidatingName( object sender, CancelEventArgs e )
+        {
+            var tb = sender as TextBox;
+            if (String.IsNullOrEmpty(tb.Text))
+                _errors.SetError(tb, "Name is Required");
+            else
+                _errors.SetError(tb, "");
         }
     }
 }
