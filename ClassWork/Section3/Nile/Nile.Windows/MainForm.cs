@@ -1,4 +1,6 @@
-﻿using System;
+﻿//TODO: Fix broken code from teacher's code.
+
+using System;
 using System.Windows.Forms;
 
 namespace Nile.Windows
@@ -10,7 +12,14 @@ namespace Nile.Windows
             InitializeComponent();
         }
 
-        private int FindAvailableElement()
+        protected override void OnLoad( EventArgs e )
+        {
+            base.OnLoad(e);
+
+            var products = _database.GetAll();
+        }
+
+       /* private int FindAvailableElement()
         {
             for (var index = 0; index < _products.Length; ++index)
             {
@@ -27,7 +36,7 @@ namespace Nile.Windows
                     return index;
     };
     return -1;
-}
+}*/
 
 private void OnFileExit( object sender, EventArgs e )
         {
@@ -37,7 +46,7 @@ private void OnFileExit( object sender, EventArgs e )
         private void OnProductAdd( object sender, EventArgs e )
         {
             //Make sure there is room left
-            var index = findElement
+            var index = findElement;
             {
                 MessageBox.Show("No more products available");
             };
@@ -82,7 +91,7 @@ private void OnFileExit( object sender, EventArgs e )
                                 "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
             //TODO: Delete product
-            _products[0] = null;
+            _database[0] = null;
         }
 
 
@@ -102,8 +111,8 @@ private void OnFileExit( object sender, EventArgs e )
             functionToCall(this, EventArgs.Empty);
         }
 
-
-        private Product _products = new Product[100];
+        private ProductDatabase _database = new ProductDatabase
+        //private Product _products = new Product[100];
         
 
     }
