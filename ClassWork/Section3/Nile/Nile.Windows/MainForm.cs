@@ -13,9 +13,14 @@ namespace Nile.Windows
     protected override void OnLoad( EventArgs e )
          {
              base.OnLoad( e);
- 
-             var products = _database.GetAll();
-         }
+
+            UpdateList();
+        }
+
+        private Product GetSelectedProduct ()
+        {
+            return _listProducts.SelectedItem as Product;
+        }
  
          //private int FindAvailableElement ( )
          //{
@@ -53,11 +58,20 @@ namespace Nile.Windows
 
             //Save product
             _database.Add(child.Product);
+
+            UpdateList();
         }
 
         private void OnProductEdit( object sender, EventArgs e )
         {
-            var product = _database.Get();
+            var product = GetSelectedProduct();
+
+            if (product==null)
+            {
+                MessageBox.Show("No products available");
+                return;
+            };
+
             var child = new ProductDetailForm("Product Details");
             child.Product = product;
             if (child.ShowDialog(this) != DialogResult.OK)
@@ -65,21 +79,34 @@ namespace Nile.Windows
 
             //Save product
             _database.Update(child.Product);
+
+            UpdateList();
         }
 
         private void OnProductDelete( object sender, EventArgs e )
         {
+            var product = GetSelectedProduct();
 
-            var product = _database.Get();
+            if (product == null)
+                return;
+
             //Confirm
             if (MessageBox.Show(this, $"Are you sure you want to delete '{product.Name}'?",
                                 "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
             //Delete product
-            _database.Remove(product);
+            _database.Remove(product.Id);
+
+            UpdateList();
         }
 
+        private void UpdateList()
+        {
+            _listProducts.Items.Clear();
 
+            foreach (var product in _database.GetAll())
+                _listProducts.Items.Add(product);
+        }
 
         private void OnHelpAbout( object sender, EventArgs e )
         {

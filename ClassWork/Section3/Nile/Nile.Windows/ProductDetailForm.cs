@@ -68,6 +68,7 @@ namespace Nile.Windows
                 return;
             };
             var product = new Product();
+            product.Id = Product?.Id ?? 0;
             product.Name = _txtName.Text;
             product.Description = _txtDescription.Text;
             product.Price = GetPrice(_txtPrice);
@@ -116,8 +117,8 @@ namespace Nile.Windows
 
             };
 
-            if (MessageBox.Show(this, "Are you Sure?", "Closing", MessageBoxButtons.YesNo) == DialogResult.No)
-                e.Cancel = true;
+            //if (MessageBox.Show(this, "Are you Sure?", "Closing", MessageBoxButtons.YesNo) == DialogResult.No)
+            //    e.Cancel = true;
         }
 
         private void ProductDetailForm_FormClosed( object sender, FormClosedEventArgs e )

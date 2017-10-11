@@ -17,6 +17,9 @@ namespace Nile
             //Cross field initialization
         }
 
+        /// <summary> Gets or sets the unique identifier</summary>
+        public int Id { get; set; }
+
         /// <summary>Gets or sets the name</summary>
         /// <value>Never returns null.</value>
         public string Name
@@ -88,13 +91,13 @@ namespace Nile
  
          private int[] _sizes = new int[4];
 
-/*
-public int ICanOnlySetIt { get; private set; }
-public int ICanOnlySetIt2 { get; }
-*/
+        /*
+        public int ICanOnlySetIt { get; private set; }
+        public int ICanOnlySetIt2 { get; }
+        */
 
 
-private string _name;
+        private string _name;
         private string _description;
 
         //private readonly double _someValueICannotChange = 10;
