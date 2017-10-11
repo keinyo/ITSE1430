@@ -1,9 +1,4 @@
-﻿/*
- * Jacob Lanham
- * ITSE 1430
- * 10-05-2017
- */
-namespace MovieLib.Windows
+﻿namespace MovieLib.Windows
 {
     partial class AboutBox
     {

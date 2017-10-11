@@ -1,9 +1,4 @@
-﻿/*
- * Jacob Lanham
- * ITSE 1430
- * 10-05-2017
- */
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
