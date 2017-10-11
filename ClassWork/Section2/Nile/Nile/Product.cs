@@ -57,8 +57,6 @@ namespace Nile
         {
             return Name;
         }
-        //Size of the product
-        public int[] Sizes { get; private set; }
 
         //public abstract string Validate2();
 
