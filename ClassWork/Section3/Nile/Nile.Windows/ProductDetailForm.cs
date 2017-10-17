@@ -63,16 +63,24 @@ namespace Nile.Windows
 
         private void OnSave( object sender, EventArgs e )
         {
-            if(!ValidateChildren())
+            if (!ValidateChildren())
             {
                 return;
             };
-            var product = new Product();
-            product.Id = Product?.Id ?? 0;
-            product.Name = _txtName.Text;
-            product.Description = _txtDescription.Text;
-            product.Price = GetPrice(_txtPrice);
-            product.IsDiscontinued = _chkDiscontinued.Checked;
+            //var product = new Product();
+            //product.Id = Product?.Id ?? 0;
+            //product.Name = _txtName.Text;
+            //product.Description = _txtDescription.Text;
+            //product.Price = GetPrice(_txtPrice);
+            //product.IsDiscontinued = _chkDiscontinued.Checked;
+
+            var product = new Product() {
+                Id = Product?.Id ?? 0,
+                Name = _txtName.Text,
+                Description = _txtDescription.Text,
+                Price = GetPrice(_txtPrice),
+                IsDiscontinued = _chkDiscontinued.Checked, //Comma here not required
+            };
 
             //Add validation
             var error = product.Validate();
