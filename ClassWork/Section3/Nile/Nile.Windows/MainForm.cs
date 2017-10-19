@@ -74,12 +74,12 @@ namespace Nile.Windows
 
             var child = new ProductDetailForm("Product Details");
             child.Product = product;
+
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
             //Save product
             _database.Update(child.Product);
-
             UpdateList();
         }
 
@@ -124,7 +124,7 @@ namespace Nile.Windows
         }
 
         private Product _product;
-        private ProductDatabase _database = new ProductDatabase();
+        private IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
 
     }
 }

@@ -83,11 +83,13 @@ namespace Nile.Windows
             };
 
             //Add validation
-            var error = product.Validate();
-            if(!String.IsNullOrEmpty(error))
+            //var error = product.Validate();
+            //if(!String.IsNullOrEmpty(error))
+            //Using IValidatableObject
+            if(!ObjectValidator.TryValidate(product, out var errors))
             {
                 //Show the error
-                showError(error, "Validation Error");
+                showError("Not valid", "Validation Error");
                 return;
             };
 

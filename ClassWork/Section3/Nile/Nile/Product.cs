@@ -1,6 +1,4 @@
-﻿//TODO: Finishing adding stuff from class on 10.16.17
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,6 +13,7 @@ namespace Nile
     /// </remarks>
     public class Product : IValidatableObject
     {
+        //Don't need this constructor
         public Product()
         {
             //Cross field initialization
@@ -69,8 +68,10 @@ namespace Nile
         /// <summary>Validates the object</summary>
         /// <returns>The error message, or null.</returns>
 
-
-        public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
+        //private IEnumerable<ValidationResult> IValidatableObject.Validate( ValidationContext validationContext )
+        //{
+        //}
+            public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
             //var errors = new List<ValidationResult>();
 

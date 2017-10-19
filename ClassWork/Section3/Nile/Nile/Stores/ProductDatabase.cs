@@ -5,37 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nile
+namespace Nile.Stores
 {
     /// <summary>Base class for product database.</summary>
-    public class ProductDatabase
+    public abstract class ProductDatabase : IProductDatabase
     {
-        public ProductDatabase()
-        {
-            //_products.Add(new Product { Id = 1, Name = "Galaxy S7", Price = 650 });
-            //_products.Add(new Product { Id = 2, Name = "Samsung Note 7", Price = 150, IsDiscontinued = true });
-            //_products.Add(new Product { Id = 3, Name = "Windows Phone", Price = 100 });            
-            //_products.Add(new Product { Id = 4, Name = "iPhone X", Price = 1900, IsDiscontinued = true });
-
-            //Collection initializer syntax
-            //_products = new List<Product>() {
-            //new Product { Id = 1, Name = "Galaxy S7", Price = 650 },
-            //new Product { Id = 2, Name = "Samsung Note 7", Price = 150, IsDiscontinued = true },
-            //new Product { Id = 3, Name = "Windows Phone", Price = 100 },
-            //new Product { Id = 4, Name = "iPhone X", Price = 1900, IsDiscontinued = true },
-            //};
-
-            //Collection initializer syntax with array
-
-            _products.AddRange(new [] {
-                new Product { Id = 1, Name = "Galaxy S7", Price = 650 },
-                new Product { Id = 2, Name = "Samsung Note 7", Price = 150, IsDiscontinued = true },
-                new Product { Id = 3, Name = "Windows Phone", Price = 100 },
-                new Product { Id = 4, Name = "iPhone X", Price = 1900, IsDiscontinued = true },
-            });
-          
-            _nextId = _products.Count + 1;
-        }
+       
 
         /// <summary>Adds a product.</summary>
         /// <param name="product">The product to add.</param>
@@ -46,15 +21,9 @@ namespace Nile
             if (product == null)
                 return null;
 
-
-
             //Emulate database by storing copy
-            var newProduct = CopyProduct(product);
-            _products.Add(newProduct);
-            newProduct.Id = _nextId++;
-
-            return CopyProduct(newProduct);
-
+            return AddCore(product);
+           
             //var item = _list[0];
 
             //TODO: Implement Add
@@ -69,21 +38,20 @@ namespace Nile
             if (id <= 0)
                 return null;
 
-            var product = FindProduct(id);
-
-            return (product!=null ? CopyProduct(product) : null);
+            
+            return GetCore(id);
         }
 
+        protected abstract Product GetCore( int id );
+
+        protected abstract Product AddCore( Product product );
+     
         /// <summary>Gets all products.</summary>
         /// <returns>The products.</returns>
-        public Product[] GetAll()
+        public IEnumerable<Product> GetAll()
         {
-            var items = new Product[_products.Count];
-            var index = 0;
-            foreach (var product in _products)
-                items[index++] = CopyProduct(product);
-
-            return items;
+            return GetAllCore();
+            
             //How many products?
          //  var count = 0;
          //  foreach (var product in _products)
@@ -104,6 +72,7 @@ namespace Nile
          //  return items;
 
         }
+        public abstract IEnumerable<Product> GetAllCore();
 
         /// <summary>Removes the product.</summary>
         /// <param name="product">The product to remove.</param>
@@ -112,10 +81,10 @@ namespace Nile
             if (id <= 0)
                 return;
 
-            var product = FindProduct(id);
-            if (product != null)
-                _products.Remove(product);
+            RemoveCore(id);
         }
+
+        protected abstract void RemoveCore( int id );
 
         /// <summary>Updates a product.</summary>
         /// <param name="product">The product to update.</param>
@@ -125,24 +94,23 @@ namespace Nile
             //TODO: Validate
             if (product == null)
                 return null;
-            if (!String.IsNullOrEmpty(product.Validate()))
+            //if (!String.IsNullOrEmpty(product.Validate()))
+            //    return null;
+
+            //using IValidatableObject
+            if (!ObjectValidator.TryValidate(product, out var errors))
                 return null;
 
             //Get existing product
-            var existing = FindProduct(product.Id);
+            var existing = GetCore(product.Id);
             if (existing == null)
                 return null;
 
-            //Replace
-
-            _products.Remove(existing);
-
-            //Emulate database by storing copy
-            var newProduct = CopyProduct(product);
-            _products.Add(newProduct);
-
-            return CopyProduct(newProduct);
+            return UpdateCore(existing, product);
+            
         }
+
+        protected abstract Product UpdateCore( Product existing, Product newItem );
 
         private Product CopyProduct( Product product )
         {
@@ -171,7 +139,6 @@ namespace Nile
         //private Product[] _products = new Product[100];
         private List<Product> _products = new List<Product>();
         private int _nextId = 1;
-
        // private List<int> _ints;
     }
 }
