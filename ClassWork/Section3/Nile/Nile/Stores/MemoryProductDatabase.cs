@@ -1,4 +1,4 @@
-﻿//TODO: Finish added stuff from classwork on 10/18/2017
+﻿//TODO: Finish cleaning code
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,14 +19,12 @@ namespace Nile.Stores
         protected override Product AddCore( Product product )
         {
             var newProduct = CopyProduct(product);
-
             _products.Add(newProduct);
+
             if (newProduct.Id <= 0)
                 newProduct.Id = _nextId++;
             else if (newProduct.Id >= _nextId)
-            {
                 _nextId = newProduct.Id + 1;
-            };
 
             return CopyProduct(newProduct);
         }
@@ -42,10 +40,10 @@ namespace Nile.Stores
 
         /// <summary>Gets all products.</summary>
         /// <returns>The products.</returns>
-        public override IEnumerable<Product> GetAllCore()
+        protected override IEnumerable<Product> GetAllCore()
         {
             foreach (var product in _products)
-                yield return items[index++] = CopyProduct(product);
+                yield return CopyProduct(product);
 
           
             //How many products?

@@ -17,7 +17,6 @@ namespace Nile.Windows
             var product = new Product();
             //product.Name = "Product A";
 
-            var price = product.DiscountedPrice;
             var name = product.Name;
 
             Application.EnableVisualStyles();

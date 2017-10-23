@@ -21,6 +21,9 @@ namespace Nile.Stores
             if (product == null)
                 return null;
 
+            //Using IValidatableObject
+            if (!ObjectValidator.TryValidate(product, out var errors))
+                return null;
             //Emulate database by storing copy
             return AddCore(product);
            
@@ -72,7 +75,7 @@ namespace Nile.Stores
          //  return items;
 
         }
-        public abstract IEnumerable<Product> GetAllCore();
+        protected abstract IEnumerable<Product> GetAllCore();
 
         /// <summary>Removes the product.</summary>
         /// <param name="product">The product to remove.</param>

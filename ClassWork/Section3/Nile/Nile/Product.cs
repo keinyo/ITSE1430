@@ -14,10 +14,7 @@ namespace Nile
     public class Product : IValidatableObject
     {
         //Don't need this constructor
-        public Product()
-        {
-            //Cross field initialization
-        }
+       
 
         /// <summary> Gets or sets the unique identifier</summary>
         public int Id { get; set; }
@@ -48,69 +45,47 @@ namespace Nile
 
         public const decimal DiscontinuedDiscountRate = 0.10M;
         /// <summary>Gets the discounted price, if applicable.</summary>
-        public decimal DiscountedPrice
-        {
-            get {
-                if (IsDiscontinued)
-                    return Price * DiscontinuedDiscountRate;
-
-                return Price;
-            }
-        }
 
         public override string ToString()
         {
             return Name;
         }
 
-        //public abstract string Validate2();
 
-        /// <summary>Validates the object</summary>
-        /// <returns>The error message, or null.</returns>
-
-        //private IEnumerable<ValidationResult> IValidatableObject.Validate( ValidationContext validationContext )
-        //{
-        //}
             public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
-            //var errors = new List<ValidationResult>();
+
 
 
             //Name cannot be empty
             if (String.IsNullOrEmpty(Name))
                 yield return new ValidationResult("Name cannot be empty.", new[] { nameof(Name) });
-                //errors.Add(new ValidationResult("Name cannot be empty.", new[] { nameof(Name) }));
                 //Price >=0
             if (Price < 0)
                 yield return new ValidationResult("Price must be >=0.", new[] { nameof(Price) });
-            //errors.Add(new ValidationResult("Price must be >=0.", new[] { nameof(Price) }));
 
             //return errors;
         }
 
         //Size of the product
-        public int[] Sizes
-         {
-             get 
-             {
-                 var copySizes = new int[_sizes.Length];
-                 Array.Copy(_sizes, copySizes, _sizes.Length);
+        //public int[] Sizes
+        // {
+        //     get 
+        //     {
+        //         var copySizes = new int[_sizes.Length];
+        //         Array.Copy(_sizes, copySizes, _sizes.Length);
  
-                 return copySizes;
-             }
-         }
+        //         return copySizes;
+        //     }
+        // }
  
-         private int[] _sizes = new int[4];
+       //  private int[] _sizes = new int[4];
 
-        /*
-        public int ICanOnlySetIt { get; private set; }
-        public int ICanOnlySetIt2 { get; }
-        */
 
 
         private string _name;
         private string _description;
 
-        //private readonly double _someValueICannotChange = 10;
+
     }
 }
