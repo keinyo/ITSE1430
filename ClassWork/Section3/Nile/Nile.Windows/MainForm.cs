@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -23,6 +25,9 @@ namespace Nile.Windows
         private Product GetSelectedProduct ()
         {
             //return _listProducts.SelectedItem as Product;
+            if (_gridProducts.SelectedRows.Count > 0)
+                return _gridProducts.SelectedRows[0].DataBoundItem as Product;
+
             return null;
         }
 
@@ -47,12 +52,17 @@ namespace Nile.Windows
         {
             var product = GetSelectedProduct();
 
-            if (product==null)
+            if (product == null)
             {
                 MessageBox.Show("No products available");
                 return;
             };
 
+            EditProduct(product);
+        }
+
+        private void EditProduct( Product product )
+        {
             var child = new ProductDetailForm("Product Details");
             child.Product = product;
 
@@ -71,6 +81,11 @@ namespace Nile.Windows
             if (product == null)
                 return;
 
+            DeleteProduct(product);
+        }
+
+        private void DeleteProduct( Product product )
+        {
             //Confirm
             if (MessageBox.Show(this, $"Are you sure you want to delete '{product.Name}'?",
                                 "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
@@ -81,13 +96,24 @@ namespace Nile.Windows
             UpdateList();
         }
 
+        // private List<Product> _products = new List<Product>();
+
         private void UpdateList()
         {
             //_listProducts.Items.Clear();
             //foreach (var product in _database.GetAll())
             //    _listProducts.Items.Add(product);
 
-            _gridProducts.DataSource = _database.GetAll().ToList();
+            //new BindingList<Product>();
+
+            
+            _bsProducts.DataSource = _database.GetAll().ToList();
+
+            //_products.Clear();
+            //_products.AddRange(_database.GetAll());
+
+            //_gridProducts.DataSource = null;
+            //_gridProducts.DataSource = _products;
         }
 
         private void OnHelpAbout( object sender, EventArgs e )
@@ -106,5 +132,28 @@ namespace Nile.Windows
 
         private IProductDatabase _database = new Nile.Stores.SeededMemoryProductDatabase();
 
+        private void OnEditRow( object sender, DataGridViewCellEventArgs e )
+        {
+            var grid = sender as DataGridView;
+
+            //Handle column clicks
+            if (e.RowIndex < 0)
+                return;
+            var row = grid.Rows[e.RowIndex];
+            var item = row.DataBoundItem as Product;
+
+            if(item != null)
+                EditProduct(item);
+        }
+
+        private void OnKeyDownGrid( object sender, KeyEventArgs e )
+        {
+            if (e.KeyCode == Keys.Delete)
+                return;
+
+            var product = GetSelectedProduct();
+            if (product != null)
+                DeleteProduct(product);
+        }
     }
 }

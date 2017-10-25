@@ -89,6 +89,8 @@ namespace Nile.Stores
                 return null;
 
             //Replace
+            existing = FindProduct(product.Id);
+             
             _products.Remove(existing);
 
             //Emulate database by storing copy
@@ -105,6 +107,7 @@ namespace Nile.Stores
 
             var newProduct = new Product();
             newProduct.Name = product.Name;
+            newProduct.Description = product.Description;
             newProduct.Price = product.Price;
             newProduct.IsDiscontinued = product.IsDiscontinued;
 
