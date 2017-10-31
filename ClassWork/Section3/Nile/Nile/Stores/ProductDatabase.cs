@@ -11,26 +11,44 @@ namespace Nile.Stores
     public abstract class ProductDatabase : IProductDatabase
     {
        
-
+        //TODO: UPDATE DOCTAGS
+        //TODO: MOVE TO SECTION 4
         /// <summary>Adds a product.</summary>
         /// <param name="product">The product to add.</param>
         /// <returns>The added product.</returns>
+        /// <exception cref="ArgumentException">Product is null</exception>
+        /// <exception cref="ValidationException"></exception>>
+  
         public Product Add( Product product )
         {
             //TODO: Validate
             if (product == null)
-                return null;
+                throw new ArgumentNullException(nameof(product), "Product was null");
+            //return null;
 
+            //System.ComponentModel.DataAnnotations.Validator.
             //Using IValidatableObject
-            if (!ObjectValidator.TryValidate(product, out var errors))
-                return null;
-            //Emulate database by storing copy
-            return AddCore(product);
-           
-            //var item = _list[0];
+            //if (!ObjectValidator.TryValidate(product, out var errors))
+            //    throw new System.ComponentModel.DataAnnotations.ValidationException("Product was not valid", nameof(product));
+            //return null;
 
-            //TODO: Implement Add
-            //return product;
+            ObjectValidator.Validate(product);
+
+            //Emulate database by storing copy
+            try
+            {
+                return AddCore(product);
+            } catch (Exception e)
+            {
+                //Throw different exception
+                throw new Exception("Add failed", e);
+
+                //re-throw
+                throw;
+
+                //Silently Ignore - almost always bad
+            };
+           
         }
 
         /// <summary>Get a specific product.</summary>
@@ -39,7 +57,7 @@ namespace Nile.Stores
         {
             //Validate
             if (id <= 0)
-                return null;
+                throw new ArgumentOutOfRangeException(nameof(id),"Id must be > 0.");
 
             
             return GetCore(id);
@@ -82,7 +100,7 @@ namespace Nile.Stores
         public void Remove( int id )
         {
             if (id <= 0)
-                return;
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0.");
 
             RemoveCore(id);
         }
@@ -96,18 +114,20 @@ namespace Nile.Stores
         {
             //TODO: Validate
             if (product == null)
-                return null;
+                throw new ArgumentNullException(nameof(product));
             //if (!String.IsNullOrEmpty(product.Validate()))
             //    return null;
 
             //using IValidatableObject
-            if (!ObjectValidator.TryValidate(product, out var errors))
-                return null;
+            //if (!ObjectValidator.TryValidate(product, out var errors))
+            //    throw new ArgumentNullException("Product is invalid", nameof(product));
+            ObjectValidator.Validate(product);
 
+            //throw expression
             //Get existing product
-            var existing = GetCore(product.Id);
-            if (existing == null)
-                return null;
+            var existing = GetCore(product.Id) ?? throw new Exception("Product not found.");
+            //if (existing == null)
+            //    throw new Exception("Product not found");
 
             return UpdateCore(existing, product);
             

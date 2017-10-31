@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -43,7 +44,15 @@ namespace Nile.Windows
                 return;
 
             //Save product
-            _database.Add(child.Product);
+            try
+            {
+                _database.Add(child.Product);
+            } catch(ValidationException ex) {
+                MessageBox.Show(this, "Validation failed", "Error");
+            } catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error");
+            };
 
             UpdateList();
         }
@@ -130,7 +139,7 @@ namespace Nile.Windows
             functionToCall(this, EventArgs.Empty);
         }
 
-        private IProductDatabase _database = new Nile.Stores.SeededMemoryProductDatabase();
+        private IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
 
         private void OnEditRow( object sender, DataGridViewCellEventArgs e )
         {
