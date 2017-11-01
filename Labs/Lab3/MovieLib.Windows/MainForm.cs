@@ -124,6 +124,7 @@ namespace MovieLib.Windows
             else if (e.KeyCode == Keys.Enter && movie != null)
                 EditMovie(movie);
 
+            e.SuppressKeyPress = true;
         }
 
         private void OnEditRow( object sender, DataGridViewCellEventArgs e )
