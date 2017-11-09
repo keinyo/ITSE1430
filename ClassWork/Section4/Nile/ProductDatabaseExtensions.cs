@@ -2,13 +2,18 @@
  * ITSE 1430
  */
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nile
 {
     /// <summary>Provides a <see cref="MemoryProductDatabase"/> with products already added.</summary>
     public static class ProductDatabaseExtensions
     {
-
+        /// <summary>Get a product by name.</summary>
+        /// <param name="source">The source</param>
+        /// <param name="name">The product name</param>
+        /// <returns>The product, if found</returns>
         public static Product GetByName( this IProductDatabase source, string name)
         {
             foreach (var item in source.GetAll())
@@ -28,5 +33,35 @@ namespace Nile
             source.Add(new Product() {Name = "Windows Phone", Price = 100 });
             source.Add(new Product() {Name = "iPhone X", Price = 1900, IsDiscontinued = true });
         }
+
+        public static IEnumerable<Product> GetProductsByDiscountPrice ( this IProductDatabase source, Func<Product, decimal> priceCalculator)
+        {
+            var products = from product in source.GetAll()
+                           where product.IsDiscontinued
+                           //select new SomeType() {
+                           select new {
+                               Product = product,
+                               AdjustedPrice = product.IsDiscontinued ? priceCalculator(product) : product.Price
+                           };
+            //Instead of anonymous type
+            //var tuple = Tuple.Create<Product, decimal>(new Product(), 10M);
+
+            return from product in products
+                   orderby product.AdjustedPrice
+                   select product.Product;
+
+        }
+
+        //Tuple syntax (new, not needed for this class)
+        //private (Product : Product, AdjustedPrice : decimal) DoSomething ()
+        //{
+        //    return (new Product, 10M);
+        //}
+
+        //private sealed class SomeType
+        //{
+        //    public Product Product { get; set; }
+        //    public decimal AdjustedPrice { get; set; }
+        //}
     }
 }

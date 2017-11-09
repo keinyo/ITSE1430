@@ -1,5 +1,4 @@
-﻿//TODO: transfer OnFileExit to Lamda  
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows.Forms;
 using Nile.Stores;
@@ -20,6 +19,9 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
+            //_miFileExit.Click += OnFileExit;
+            _miFileExit.Click += ( o, ea ) => Close();
+
             _database = new Nile.Stores.FileProductDatabase("products.csv");
             //ProductDatabaseExtensions.WithSeedData(_database);
             _database.WithSeedData();
@@ -33,12 +35,10 @@ namespace Nile.Windows
         #region Event Handlers
 
         //Menus
-        private void OnFileExit( object sender, EventArgs e )
-        {
-            //_miFileExit.Click+= OnFileExit;
-
-            _miFileExit += (O, ea) => Close();
-        }
+        //private void OnFileExit( object sender, EventArgs e )
+        //{
+        //    Close();
+        //}
 
         private void OnProductAdd( object sender, EventArgs e )
         {
