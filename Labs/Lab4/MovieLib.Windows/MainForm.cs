@@ -23,6 +23,7 @@ namespace MovieLib.Windows
             base.OnLoad(e);
 
             var connString = ConfigurationManager.ConnectionStrings["MovieDatabase"].ConnectionString;
+            _database = new MovieLib.Data.Sql.SqlMovieDatabase(connString);
 
             _gridMovies.AutoGenerateColumns = false;
 
