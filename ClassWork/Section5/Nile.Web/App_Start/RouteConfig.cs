@@ -18,6 +18,9 @@ namespace Nile.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            //Does not work, can add new routes
+            //routes.MapRoute("Extra", "{controller}s/{action}");
         }
     }
 }
