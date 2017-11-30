@@ -40,12 +40,13 @@ namespace Nile.Stores.Sql
 
         protected override IEnumerable<Product> GetAllCore()
         {
+            var products = new List<Product>();
             using (var connection = OpenDatabase())
             {
                 //connection.CreateCommand();
                 var cmd = new SqlCommand("GetAllProducts", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
-                var products = new List<Product>();
+                
                 using (var reader = cmd.ExecuteReader())
                 {
                     //reader.GetName(0);
@@ -61,6 +62,7 @@ namespace Nile.Stores.Sql
                             Description = reader.GetString(3),                           
                             IsDiscontinued = reader.GetBoolean(4),
                         };
+                        products.Add(product);
                     };
                 };
 

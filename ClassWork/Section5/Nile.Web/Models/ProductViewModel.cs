@@ -5,11 +5,12 @@ using System.Web;
 
 namespace Nile.Web.Models
 {
-    public class ProductViewController
+    public class ProductViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public double Price { get; set; }
-        public bool isOwned { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public bool isDiscontinued { get; set; }
     }
 }
