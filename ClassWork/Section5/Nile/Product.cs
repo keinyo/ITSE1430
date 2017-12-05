@@ -36,9 +36,10 @@ namespace Nile
         //    get => 0M;
         //}
 
-        //Getter only property
-        public decimal CalculatedProperty => 0M;
 
+        //Getter only property
+        [Obsolete("Deprecated in v1. Use something only")]
+        public decimal CalculatedProperty => 0M;
         //Caution: this is a field, not a properity
         public decimal CalculatedProperty2 = 0M;
 
