@@ -1,7 +1,7 @@
 ﻿/*
  * Jacob Lanham
  * ITSE 1430
- * 12-07-2017
+ * 12-08-2017
  */
 using System;
 using System.Collections.Generic;
@@ -123,7 +123,7 @@ namespace MovieLib.Data.Sql
                 cmd.Parameters.AddWithValue("@Id", existing.Id);
                 cmd.Parameters.AddWithValue("@Title", movie.Title);
                 cmd.Parameters.AddWithValue("@Length", movie.Length);
-                cmd.Parameters.AddWithValue("@Owned", movie.Owned);
+                cmd.Parameters.AddWithValue("@isOwned", movie.Owned);
                 cmd.Parameters.AddWithValue("@Description", movie.Description); 
 
                 cmd.ExecuteNonQuery();

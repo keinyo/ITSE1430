@@ -35,7 +35,7 @@ namespace MovieLib
         /// <summary>Gets or sets the length</summary>
         public int Length { get; set; }
 
-        /// <summary>Detirmines if owned or not</summary>
+        /// <summary>Determines if owned or not</summary>
         public bool Owned { get; set; }
 
         /// <summary>Validates the Movie object</summary>
