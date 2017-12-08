@@ -24,7 +24,7 @@ namespace MovieLib.Data.Memory
 
             ObjectValidator.Validate(movie);
 
-            return AddCore(movie);
+            return AddCore(movie); 
         }
 
         /// <summary>Get a specfic moive.</summary>
