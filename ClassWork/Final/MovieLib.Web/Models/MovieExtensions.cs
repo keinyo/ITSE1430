@@ -1,6 +1,8 @@
 ﻿/*
  * ITSE 1430
  * Sample implementation
+ * Jacob Lanham
+ * 12-13-2017
  */
 using System;
 using System.Collections.Generic;
@@ -26,11 +28,10 @@ namespace MovieLib.Web.Models
         /// <returns>The view model.</returns>
         public static MovieViewModel ToViewModel ( this Movie source )
         {
-            return new MovieViewModel()
-            {
+            return new MovieViewModel() {
                 Id = source.Id,
                 Title = source.Title,
-
+                Rating = source.Rating,
                 Description = source.Description,
                 Length = source.Length,
                 IsOwned = source.IsOwned,
@@ -47,7 +48,7 @@ namespace MovieLib.Web.Models
             {
                 Id = source.Id,
                 Title = source.Title,
-
+                Rating = source.Rating,
                 Description = source.Description,
                 Length = source.Length,
                 IsOwned = source.IsOwned,

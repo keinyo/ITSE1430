@@ -1,6 +1,8 @@
 ﻿/*
  * ITSE 1430
  * Sample implementation
+ * Jacob Lanham
+ * 12-13-2017
  */
 using System;
 using System.Collections.Generic;
@@ -30,8 +32,10 @@ namespace MovieLib
         /// <summary>Gets or sets the movie rating.</summary>
         public Rating Rating { get; set; }
 
+        [Range(1900, 2100, ErrorMessage = "Year must be between 1900 and 2100")]
         public int ReleaseYear { get; set; }
 
+        [StringLength(100,MinimumLength = 2, ErrorMessage = "Name must be between 2 and 100 characters long.")]
         /// <summary>Gets or sets the title.</summary>
         public string Title
         {

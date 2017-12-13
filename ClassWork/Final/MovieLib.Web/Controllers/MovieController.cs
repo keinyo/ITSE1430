@@ -1,6 +1,8 @@
 ﻿/*
  * ITSE 1430
  * Sample implementation
+ * Jacob Lanham
+ * 12-13-2017
  */
 using System;
 using System.Collections.Generic;
@@ -50,7 +52,7 @@ namespace MovieLib.Web.Controllers
             
             return View(model);
         }
-
+        
         public ActionResult Delete ( int id )
         {
             var movie = _database.Get(id);
@@ -99,6 +101,7 @@ namespace MovieLib.Web.Controllers
         public ActionResult List()
         {
             var movies = from m in _database.GetAll()
+                         orderby m.Title
                          select m;
             
             return View(movies.ToViewModel());

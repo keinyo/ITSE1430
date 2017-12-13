@@ -1,5 +1,7 @@
 ﻿/*
  * ITSE 1430
+ * Jacob Lanham
+ * 12-13-2017
  */
 using System;
 using System.Collections.Generic;
@@ -46,7 +48,7 @@ namespace MovieLib.Data
 
         /// <summary>Gets all the movies.</summary>
         /// <returns>The list of movies.</returns>
-        public IEnumerable<Movie> Getall ()
+        public IEnumerable<Movie> GetAll ()
         {
             return GetAllCore();
         }
@@ -64,7 +66,7 @@ namespace MovieLib.Data
                 throw new ArgumentOutOfRangeException(nameof(id), "ID must be > 0.");
 
             var existing = GetCore(id);
-            if (existing != null)
+            if (existing == null)
                 return false;
 
             RemoveCore(id);
@@ -88,8 +90,8 @@ namespace MovieLib.Data
                 throw new ArgumentNullException(nameof(movie));
             ObjectValidator.ValidateObject(movie);
 
-            //Get the existing movie
-            var existing = GetCore(movie.Id);
+                //Get the existing movie
+                var existing = GetCore(movie.Id);
             if (existing == null)
                 throw new ArgumentException("Move does not exist.");
 
@@ -97,7 +99,7 @@ namespace MovieLib.Data
             existing = FindByTitleCore(movie.Title);
             if (existing != null && existing.Id != movie.Id)
                 throw new ArgumentException("Movie with same title already exists.", nameof(movie));
-                                  
+           
             return UpdateCore(movie);
         }
 
